@@ -22,6 +22,9 @@ if __name__ == '__main__':
             User(username="Dom")
         ]
 
+        for user in users:
+            user.password_hash = 'abc'
+
         db.session.add_all(users)
 
         print('Seeding Meals')

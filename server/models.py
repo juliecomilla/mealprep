@@ -3,6 +3,8 @@ from sqlalchemy import MetaData
 from sqlalchemy.orm import validates
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy_serializer import SerializerMixin
+from flask_bcrypt import Bcrypt
+from sqlalchemy.ext.hybrid import hybrid_property
 
 
 convention = {
@@ -16,6 +18,7 @@ convention = {
 metadata = MetaData(naming_convention=convention)
 
 db = SQLAlchemy(metadata=metadata)
+bcrypt = Bcrypt()
 
 class User(db.Model, SerializerMixin):
     __tablename__ = "users"
@@ -24,12 +27,27 @@ class User(db.Model, SerializerMixin):
     
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, nullable=False)
-    _pass_hash = db.Column(db.String)
+    _password_hash = db.Column(db.String)
 
     favorite_meals = db.relationship('FavoriteMeal', back_populates="user")
     favorite_tails = db.relationship('FavoriteCocktail', back_populates="user")
     meal_reviews = db.relationship('MealReview', back_populates="user")
     cocktail_reviews = db.relationship('CocktailReview', back_populates="user")
+
+    @hybrid_property
+    def password_hash(self):
+        return self._pass_hash
+    
+    @password_hash.setter
+    def password_hash(self, new_pass):
+        pass_hash = bcrypt.generate_password_hash(new_pass.encode('utf-8'))
+        self._password_hash = pass_hash.decode('utf-8')
+
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(
+            self._password_hash,
+            password.encode('utf-8')
+        )
 
     def __repr__(self):
         return self.username
