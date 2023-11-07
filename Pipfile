@@ -13,6 +13,8 @@ ipdb = "*"
 flask-restful = "*"
 sqlalchemy-serializer = "*"
 python-dotenv = "*"
+flask-bcrypt = "*"
+werkzeug = "*"
 
 [dev-packages]
 
