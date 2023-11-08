@@ -1,10 +1,10 @@
 import { useState } from "react"
 
-function HomePage() {
+function Login() {
  
     
   
 }
 
 
-export default HomePage;
+export default Login;

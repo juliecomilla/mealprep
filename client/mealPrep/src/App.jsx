@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import { Switch, Route} from "react-router-dom";
-import Header from './Header';
-import Login from './Login';
-import HomePage from './HomePage';
-import MealsPage from './MealPage';
-import CocktailsPage from './CocktailsPage';
-import MealsContainer from './MealsContainer';
-import CocktailContainer from './CocktailContainer';
-import UserProfile from './Profile';
+import { Route, Routes} from "react-router-dom";
+import Header from './components/Header';
+import Login from './components/Login';
+import HomePage from './components/HomePage';
+import MealsPage from './components/MealsPage';
+import CocktailPage from './components/CocktailPage';
+import Profile from './components/Profile';
+import CocktailContainer from './components/CocktailContainer';
+import MealsContainer from './components/MealsContainer';
+import CocktailCard from './components/CocktailCard';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -16,9 +17,9 @@ function App() {
   const [meals, setMeals]= useState([])
 
   useEffect(() => {
-    fetch("http://localhost:5173/")
+    fetch("http://localhost:3000/cocktails")
     .then(resp => resp.json())
-    .then((data)=> setMealPrep(data));
+    .then((data)=> setCocktails(data));
 
 
   }, []);
@@ -26,38 +27,47 @@ function App() {
   return (
     <div>
       <Header/>
-      <Switch>
+        <Routes>
 
-        <Route path="/login">
-          <Login />
-        </Route>
+        <Route path="/login"
+        element={<Login />}
+        />
+       
 
-        <Route path="/homepage">
-          <HomePage />
-        </Route>
+        <Route path="/homepage"
+         element={<HomePage />}
+         />
+    
 
-        <Route path="/profile">
-          <UserProfile/>
-        </Route>
+        <Route path="/profile"
+          element={<Profile/>}
+        />
+        
 
+        <Route path="/meals/"
+          element={<MealsPage/>}
+        />
+        {cocktails.map(cocktail => {
+            return(
+              <Route exact path={`/cocktails/${cocktail.idDrink}`}
+                element={<CocktailCard {...cocktail}/>}
+              />
+            )
+            })}
 
-        <Route path="/meals/:id">
-          <MealsPage/>
-        </Route>
+        <Route path="/cocktails/"
+          element={<CocktailPage cocktails={cocktails}/>} 
+        />
+        
+        <Route exact path="/"
+          element={<CocktailContainer/>}
+        />
 
-        <Route path="/cocktails/:id">
-          <CocktailsPage/>
-        </Route>
- 
-        <Route exact path="/">
-        <MealsContainer meals={meals} setMeals={setMeals} />
-        </Route>
+        <Route exact path="/"
+          element={<MealsContainer/>}
+        />
 
-        <Route exact path="/">
-        <CocktailContainer cocktails={cocktails} setCocktails={setCocktails} />
-        </Route>
-
-      </Switch>
+      </Routes>
     </div>
   );
 };
