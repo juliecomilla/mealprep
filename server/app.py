@@ -30,9 +30,10 @@ def home():
 
 @app.route('/signup', methods=['POST'])
 def signup():
+    
     data = request.get_json()
     try:
-        new_user = User(username=data['username'])
+        new_user = User(username=data['username'], first_name=data['first_name'], last_name=data['last_name'], email=data['email'])
         new_user.password_hash = data['password']
     except ValueError as e:
         return {'error':str(e)}, 400

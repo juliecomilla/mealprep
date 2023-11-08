@@ -1,14 +1,15 @@
 import { useState } from "react"
+import {useNavigate} from "react-router-dom"
 
 export default function Signup(){
     const blankForm = {
         "username": "",
         "password": "",
-        "confirmpassword":"",
         "first_name": "",
         "last_name": "",
         "email": ""
     }
+    const navigate = useNavigate()
     const [formData, setFormData] = useState(blankForm)
     
     function handleChange(event) {
@@ -21,7 +22,19 @@ export default function Signup(){
     }
     function handleSubmit(event){
         event.preventDefault()
-
+        console.log(formData)
+        fetch("http://127.0.0.1:5555/signup", {
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify(formData)
+        })
+        .then(resp => resp.json)
+        // .then(data => console.log(data))
+        
+        setFormData(blankForm)
+        navigate("/login")
     }
 
     return (
@@ -29,22 +42,21 @@ export default function Signup(){
             <h1>SIGNUP</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="username">Username:</label>
-                <input name="username" autoComplete="false" type="text" placeholder="Username"></input>
+                <input name="username" onChange={handleChange} autoComplete="off" type="text" placeholder="Username"></input>
                 <br/>
                 <label htmlFor="password">Password:</label>
-                <input name="password" autoComplete="false" type="text" placeholder="Password"></input>
-                <br/>
-                <label htmlFor="confirmpassword">Confirm Password:</label>
-                <input name="confirmpassword" autoComplete="false" type="text" placeholder="Password"></input>
+                <input name="password" onChange={handleChange} autoComplete="off" type="text" placeholder="Password"></input>
                 <br/>
                 <label htmlFor="first_name">First Name:</label>
-                <input name="first_name" autoComplete="false" type="text" placeholder="First Name"></input>
+                <input name="first_name" onChange={handleChange} autoComplete="off" type="text" placeholder="First Name"></input>
                 <br/>
                 <label htmlFor="last_name">Last Name:</label>
-                <input name="last_name" autoComplete="false" type="text" placeholder="Last Name"></input>
+                <input name="last_name" onChange={handleChange} autoComplete="off" type="text" placeholder="Last Name"></input>
                 <br/>
                 <label htmlFor="email">Email:</label>
-                <input name="email" autoComplete="false" type="text" placeholder="Email"></input>
+                <input name="email" onChange={handleChange} autoComplete="off" type="text" placeholder="Email"></input>
+                <br/>
+                <button type="submit">Submit</button>
             </form>
         </div>
     )
