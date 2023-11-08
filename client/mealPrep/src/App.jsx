@@ -7,22 +7,11 @@ import HomePage from './components/HomePage';
 import MealsPage from './components/MealsPage';
 import CocktailPage from './components/CocktailPage';
 import Profile from './components/Profile';
-import CocktailContainer from './components/CocktailContainer';
-import MealsContainer from './components/MealsContainer';
 import CocktailCard from './components/CocktailCard';
+import MealsCard from './components/MealsCard'
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [cocktails, setCocktails]= useState([])
-  const [meals, setMeals]= useState([])
-
-  useEffect(() => {
-    fetch("http://localhost:3000/cocktails")
-    .then(resp => resp.json())
-    .then((data)=> setCocktails(data));
-
-
-  }, []);
+ 
 
   return (
     <div>
@@ -43,28 +32,20 @@ function App() {
           element={<Profile/>}
         />
         
+      `<Route exact path='/cocktail/:id'
+          element={<CocktailCard/>}
+        /> 
+            
+        <Route path='/meals/"id'
+          element={<MealsCard/>}
+        />
 
-        <Route path="/meals/"
+        <Route exact path="/"
+          element={<CocktailPage/>}
+        />
+
+        <Route exact path="/"
           element={<MealsPage/>}
-        />
-        {cocktails.map(cocktail => {
-            return(
-              <Route exact path={`/cocktails/${cocktail.idDrink}`}
-                element={<CocktailCard {...cocktail}/>}
-              />
-            )
-            })}
-
-        <Route path="/cocktails/"
-          element={<CocktailPage cocktails={cocktails}/>} 
-        />
-        
-        <Route exact path="/"
-          element={<CocktailContainer/>}
-        />
-
-        <Route exact path="/"
-          element={<MealsContainer/>}
         />
 
       </Routes>

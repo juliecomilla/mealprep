@@ -1,23 +1,18 @@
-import React from'react';
-import CocktailContainer from "./CocktailContainer";
-import Search from './Search';
 import { NavLink, useParams } from "react-router-dom";
-import { useEffect, useState } from "react"
+import { React, useState, useEffect } from 'react'
+import CocktailCard from "./CocktailCard";
 
-function CocktailPage({ cocktails }) {
+function CocktailPage() {
+    const [cocktails, setCocktails]= useState([])
+
+    useEffect(() => {
+        fetch("http://localhost:3000/cocktails")
+        .then(resp => resp.json())
+        .then((data)=> setCocktails(data));
+    },[])
     
-    function handleClick() {
-        setIsButton(prevVal => !prevVal);
-    };
-      
-    
-    const { id } = useParams()
-
-
     return (
-        <ul>
-            {cocktails.map(page => (<li><NavLink exact to={`/cocktails/${page.idDrink}`}>{page.strDrink}</NavLink><img src={page.strDrinkThumb}></img></li>))}
-        </ul>
+        <ul><CocktailCard key={cocktails.idDrink} {...cocktails}/></ul>
     );
 }
 
