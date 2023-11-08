@@ -1,4 +1,14 @@
+<<<<<<< HEAD
 import { useState, useEffect } from 'react'
+=======
+import { useState } from 'react'
+import {Routes,  Route } from 'react-router-dom'
+import Food from './component/Food'
+import Login from './component/Login'
+import Meal from './component/Meal'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+>>>>>>> kerem_branch
 import './App.css'
 import { Route, Routes} from "react-router-dom";
 import Header from './components/Header';
