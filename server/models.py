@@ -28,6 +28,9 @@ class User(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, nullable=False)
     _password_hash = db.Column(db.String)
+    first_name = db.Column(db.String, nullable=False)
+    last_name = db.Column(db.String, nullable=False)
+    email = db.Column(db.String)
 
     favorite_meals = db.relationship('FavoriteMeal', back_populates="user")
     favorite_tails = db.relationship('FavoriteCocktail', back_populates="user")

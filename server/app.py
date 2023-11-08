@@ -4,6 +4,7 @@ from models import db, User, Meal, Cocktail, FavoriteMeal, FavoriteCocktail, Mea
 from flask_migrate import Migrate
 from flask import Flask, request, make_response, session
 from flask_restful import Api, Resource
+from flask_cors import CORS
 
 import os
 
@@ -14,7 +15,8 @@ DATABASE = os.environ.get(
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = os.environ.get("SECRET_KEY")
+app.secret_key = os.environ.get("secret_key")
+CORS(app)
 
 
 
