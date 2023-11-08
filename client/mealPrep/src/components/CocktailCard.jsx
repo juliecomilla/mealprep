@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+
 function CocktailCard({ strDrink, strDrinkThumb, strInstructions, strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5, strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5}) {
 
   const [Ingredient1, setIngredient1] = useState(strIngredient1)
@@ -21,8 +22,8 @@ function CocktailCard({ strDrink, strDrinkThumb, strInstructions, strIngredient1
               <p className="cocktail_instructions"> {strInstructions} </p>
             </div>
             <div>
-              <h4>Ingredients</h4>
-              <ul>
+              <h4>Ingredients:</h4>
+              <ul className = "cocktail_ingredients">
                 {Ingredient1 ? <li><p>{Ingredient1} - {Measure1}</p></li> : null}
                 {Ingredient2 ? <li><p>{Ingredient2} - {Measure2}</p></li> : null}
                 {Ingredient3 ? <li><p>{Ingredient3} - {Measure3}</p></li> : null}

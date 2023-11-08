@@ -8,12 +8,9 @@ import MealsPage from './components/MealsPage';
 import MealCard from './components/MealsCard';
 import CocktailPage from './components/CocktailPage';
 import Profile from './components/Profile';
-import CocktailContainer from './components/CocktailContainer';
-import MealsContainer from './components/MealsContainer';
 import CocktailCard from './components/CocktailCard';
 
 function App() {
-  const [count, setCount] = useState(0)
   const [cocktails, setCocktails]= useState([])
   const [meals, setMeals]= useState([])
 
