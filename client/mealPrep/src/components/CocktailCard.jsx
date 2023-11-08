@@ -1,24 +1,24 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function CocktailCard({ strDrink, strDrinkThumb, strInstructions, strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5, strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5}) {
+function CocktailCard({ name, image, instruction, ingred1, ingred2, ingred3, ingred4, ingred5, measure1, measure2, measure3, measure4, measure5}) {
 
-  const [Ingredient1, setIngredient1] = useState(strIngredient1)
-  const [Ingredient2, setIngredient2] = useState(strIngredient2)
-  const [Ingredient3, setIngredient3] = useState(strIngredient3)
-  const [Ingredient4, setIngredient4] = useState(strIngredient4)
-  const [Ingredient5, setIngredient5] = useState(strIngredient5)
-  const [Measure1, setMeasure1] = useState(strMeasure1)
-  const [Measure2, setMeasure2] = useState(strMeasure2)
-  const [Measure3, setMeasure3] = useState(strMeasure3)
-  const [Measure4, setMeasure4] = useState(strMeasure4)
-  const [Measure5, setMeasure5] = useState(strMeasure5)
+  const [Ingredient1, setIngredient1] = useState(ingred1)
+  const [Ingredient2, setIngredient2] = useState(ingred2)
+  const [Ingredient3, setIngredient3] = useState(ingred3)
+  const [Ingredient4, setIngredient4] = useState(ingred4)
+  const [Ingredient5, setIngredient5] = useState(ingred5)
+  const [Measure1, setMeasure1] = useState(measure1)
+  const [Measure2, setMeasure2] = useState(measure2)
+  const [Measure3, setMeasure3] = useState(measure3)
+  const [Measure4, setMeasure4] = useState(measure4)
+  const [Measure5, setMeasure5] = useState(measure5)
   
   return(
     <div className = "detail_card">
-            <div className = "cocktail_name">{strDrink}
-              <img src={strDrinkThumb} alt={strDrink}className="cocktail_image" />
-              <p className="cocktail_instructions"> {strInstructions} </p>
+            <div className = "cocktail_name">{name}
+              <img src={image} alt={name}className="cocktail_image" />
+              <p className="cocktail_instructions"> {instruction} </p>
             </div>
             <div>
               <h4>Ingredients</h4>

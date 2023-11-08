@@ -11,21 +11,23 @@ import Profile from './components/Profile';
 import CocktailContainer from './components/CocktailContainer';
 import MealsContainer from './components/MealsContainer';
 import CocktailCard from './components/CocktailCard';
+import Signup from './components/Signup';
+
 
 function App() {
   const [count, setCount] = useState(0)
   const [cocktails, setCocktails]= useState([])
   const [meals, setMeals]= useState([])
+  
 
   useEffect(() => {
-    fetch("http://localhost:3000/cocktails")
+    fetch("http://127.0.0.1:5555/cocktails")
     .then(resp => resp.json())
     .then((data)=> setCocktails(data))
 
-    fetch("http://localhost:3000/meals")
+    fetch("http://127.0.0.1:5555/meals")
     .then(resp => resp.json())
     .then((data)=> setMeals(data))
-
   }, []);
 
   return (
@@ -34,33 +36,37 @@ function App() {
         <Routes>
 
         <Route path="/login"
-        element={<Login />}
+          element={<Login />}
         />
-       
+
+        <Route path="/signup"
+          element={<Signup />}
+        />
 
         <Route path="/"
-         element={<HomePage />}
-         />
-    
+          element={<HomePage meals={meals} cocktails={cocktails}/>}
+        />
 
         <Route path="/profile"
           element={<Profile/>}
         />
-          {meals.map(meal => {
-            return(
-              <Route exact path={`/meals/${meal.idMeal}`}
-                element={<MealCard {...meal}/>}
-              />
-            )
-          })}
+
+        {meals.map(meal => {
+          return(
+            <Route exact path={`/meals/${meal.name}`}
+              element={<MealCard key={meal.name} {...meal}/>}
+            />
+          )
+        })}
 
         <Route path="/meals/"
           element={<MealsPage meals={meals}/>}
         />
+
         {cocktails.map(cocktail => {
             return(
-              <Route exact path={`/cocktails/${cocktail.idDrink}`}
-                element={<CocktailCard {...cocktail}/>}
+              <Route exact path={`/cocktails/${cocktail.id}`}
+                element={<CocktailCard key={cocktail.name} {...cocktail}/>}
               />
             )
         })}

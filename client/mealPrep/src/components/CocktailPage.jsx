@@ -1,6 +1,5 @@
 import React from'react';
 import CocktailContainer from "./CocktailContainer";
-import Search from './Search';
 import { NavLink, useParams } from "react-router-dom";
 import { useEffect, useState } from "react"
 
@@ -16,7 +15,7 @@ function CocktailPage({ cocktails }) {
 
     return (
         <ul>
-            {cocktails.map(page => (<li><NavLink exact to={`/cocktails/${page.idDrink}`}>{page.strDrink}</NavLink><img src={page.strDrinkThumb}></img></li>))}
+            {cocktails.map(page => (<li><NavLink exact to={`/cocktails/${page.id}`}>{page.name}</NavLink><img src={page.image}></img></li>))}
         </ul>
     );
 }

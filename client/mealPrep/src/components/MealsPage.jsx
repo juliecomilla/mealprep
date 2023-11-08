@@ -9,7 +9,7 @@ function MealsPage({ meals }) {
    
     return (
         <ul>
-            {meals.map(page => (<li><NavLink exact to={`/meals/${page.idMeal}`}>{page.strMeal}</NavLink><img src={page.strMealThumb}></img></li>))}
+            {meals.map(page => (<li><NavLink exact to={`/meals/${page.name}`}>{page.name}</NavLink><img src={page.image}></img></li>))}
         </ul>
     )
 }
