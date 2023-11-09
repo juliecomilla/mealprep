@@ -9,7 +9,7 @@ export default function Header({user, setUser}) {
     }
     return (
         <header className="header">
-            <h1> Meal and Drink Pal</h1>
+            <h1> Meal & Drink Pal</h1>
             <ul className="navbar">
                 {user ? <li>{user.username}</li> : null}
                 <li><Link to="/">HomePage</Link></li>

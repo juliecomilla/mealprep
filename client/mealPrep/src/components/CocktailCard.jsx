@@ -71,13 +71,17 @@ function CocktailCard({ setUser, setCocktails, user, id, reviews, name, image, i
   }
 
   return(
-    <div className = "detail_card">
-            <div className = "cocktail_name">{name}
+    <div className="card border-success mb-3">
+
+               <h5 className = "card-header bg-transparent border-success">{name}</h5>
+               <div class="card-body text-success"></div>
               <img src={image} alt={name}className="cocktail_image" />
               <p className="cocktail_instructions"> {instruction} </p>
-            </div>
+      
             <div>
-              <h4>Ingredients</h4>
+
+
+              <h4>Ingredients:</h4>
               <ul>
                 {Ingredient1 ? <li><p>{Ingredient1} - {Measure1}</p></li> : null}
                 {Ingredient2 ? <li><p>{Ingredient2} - {Measure2}</p></li> : null}

@@ -5,17 +5,10 @@ import { useEffect, useState } from "react"
 
 function CocktailPage({ cocktails }) {
     
-    function handleClick() {
-        setIsButton(prevVal => !prevVal);
-    };
-      
-    
-    const { id } = useParams()
-
-
     return (
-        <ul>
-            {cocktails.map(page => (<li><NavLink exact to={`/cocktails/${page.id}`}>{page.name}</NavLink><img src={page.image}></img></li>))}
+        <ul className="x">
+            {cocktails.map(page => (<li className="y"><NavLink className= "drink-main-name" exact to={`/cocktails/${page.id}`}>{page.name}</NavLink>
+            <img className="cocktailmain_image" src={page.image} alt={page.name}></img></li>))}
         </ul>
     );
 }
