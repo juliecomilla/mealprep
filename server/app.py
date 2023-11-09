@@ -28,6 +28,15 @@ db.init_app(app)
 def home():
     return '<h1>Phase 4 Group Project</h1>'
 
+@app.route('/loggedin')
+def check_logged_in():
+    user_id = session.get('user_id')
+    user = User.query.filter(User.id == user_id).first()
+
+    if not user:
+        # invalid cookie
+        return {'message': 'invalid session'}, 401
+
 @app.route('/signup', methods=['POST'])
 def signup():
     
@@ -42,6 +51,13 @@ def signup():
 
     return {'message': f'{new_user.username} added'}, 201
 
+@app.route('/users/<int:id>')
+def user_by_id(id):
+    user = User.query.filter(User.id == id).first()
+    if not user:
+        return {'error':'User not found'}, 404
+    return user.to_dict(), 200
+
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -52,7 +68,7 @@ def login():
     
     if user.authenticate(data['password']):
         session['user_id'] = user.id
-        return {'message': 'login success'}, 201
+        return user.to_dict(), 201
     else:
         return {'message': 'login failed'}, 401
     
@@ -104,7 +120,7 @@ def all_favcocks():
     data = request.get_json()
 
     try:
-        new_fav = FavoriteCocktail(user_id = data.get('user_id'), cocktail_id = data.get('meal_id'))
+        new_fav = FavoriteCocktail(user_id = data.get('user_id'), cocktail_id = data.get('cocktail_id'))
     except ValueError as e:
         return {'message':str(e)}, 400
     

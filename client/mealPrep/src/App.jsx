@@ -18,8 +18,10 @@ function App() {
   const [count, setCount] = useState(0)
   const [cocktails, setCocktails]= useState([])
   const [meals, setMeals]= useState([])
+  const [user, setUser]= useState(null)
   
-
+  
+  
   useEffect(() => {
     fetch("http://127.0.0.1:5555/cocktails")
     .then(resp => resp.json())
@@ -32,11 +34,11 @@ function App() {
 
   return (
     <div>
-      <Header/>
+      <Header user={user} setUser={setUser}/>
         <Routes>
 
         <Route path="/login"
-          element={<Login />}
+          element={<Login user={user} setUser={setUser}/>}
         />
 
         <Route path="/signup"
@@ -48,13 +50,13 @@ function App() {
         />
 
         <Route path="/profile"
-          element={<Profile/>}
+          element={<Profile user={user}/>}
         />
 
         {meals.map(meal => {
           return(
             <Route exact path={`/meals/${meal.name}`}
-              element={<MealCard key={meal.name} {...meal}/>}
+              element={<MealCard setUser={setUser} setMeals={setMeals} user={user} key={meal.name} {...meal}/>}
             />
           )
         })}
@@ -66,7 +68,7 @@ function App() {
         {cocktails.map(cocktail => {
             return(
               <Route exact path={`/cocktails/${cocktail.id}`}
-                element={<CocktailCard key={cocktail.name} {...cocktail}/>}
+                element={<CocktailCard setUser={setUser} setCocktails={setCocktails} user={user} key={cocktail.name} {...cocktail}/>}
               />
             )
         })}

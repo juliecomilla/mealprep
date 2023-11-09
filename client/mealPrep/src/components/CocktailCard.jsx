@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function CocktailCard({ name, image, instruction, ingred1, ingred2, ingred3, ingred4, ingred5, measure1, measure2, measure3, measure4, measure5}) {
+function CocktailCard({ setUser, setCocktails, user, id, reviews, name, image, instruction, ingred1, ingred2, ingred3, ingred4, ingred5, measure1, measure2, measure3, measure4, measure5}) {
 
   const [Ingredient1, setIngredient1] = useState(ingred1)
   const [Ingredient2, setIngredient2] = useState(ingred2)
@@ -14,6 +14,62 @@ function CocktailCard({ name, image, instruction, ingred1, ingred2, ingred3, ing
   const [Measure4, setMeasure4] = useState(measure4)
   const [Measure5, setMeasure5] = useState(measure5)
   
+  function handleSubmit(event){
+    event.preventDefault()
+    console.log(user)
+    const new_comment = {
+      "user_id" : user.id,
+      "cocktail_id" : id,
+      "comment" : event.target.comment.value
+    }
+    
+    fetch("http://127.0.0.1:5555/cockrevs",{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify(new_comment)
+    })
+    .then(resp => resp.json())
+    
+    fetch("http://127.0.0.1:5555/cocktails")
+    .then(resp => resp.json())
+    .then((data)=> setCocktails(data))
+
+    fetch(`http://127.0.0.1:5555/users/${user.id}`)
+    .then(resp => resp.json())
+    .then((data)=> setUser(data))
+    
+  }
+  
+  function handleClick(e){
+    const new_comment = {
+      "user_id" : user.id,
+      "cocktail_id" : id
+    }
+
+    console.log("adding favorite")
+    
+    fetch("http://127.0.0.1:5555/favcocks",{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify(new_comment)
+    })
+    .then(resp => resp.json())
+
+    fetch("http://127.0.0.1:5555/cocktails")
+    .then(resp => resp.json())
+    .then((data)=> setCocktails(data))
+
+    fetch(`http://127.0.0.1:5555/users/${user.id}`)
+    .then(resp => resp.json())
+    .then((data)=> setUser(data))
+
+    console.log("finish adding favorite")
+  }
+
   return(
     <div className = "detail_card">
             <div className = "cocktail_name">{name}
@@ -30,6 +86,22 @@ function CocktailCard({ name, image, instruction, ingred1, ingred2, ingred3, ing
                 {Ingredient5 ? <li><p>{Ingredient5} - {Measure5}</p></li> : null}
               </ul>
             </div>
+            <div>
+              <h4>Comments</h4>
+              {reviews ? reviews.map(review => (<p>{review.comment}</p>)): null}
+            </div>
+            <div>
+                { user ? 
+                  <form onSubmit={handleSubmit}>
+                    <input type="text" name="comment" placeholder="comment"></input>
+                    <button type="submit">Submit</button>
+                  </form>: null}
+              </div>
+              <div>
+                { user ? 
+                    <button onClick={handleClick}>Favorite</button>
+                  : null}
+              </div>
       </div>
   )
 }

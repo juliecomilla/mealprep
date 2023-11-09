@@ -1,7 +1,7 @@
 import { useState } from "react"
 import {useNavigate} from "react-router-dom"
 
-function Login() {
+function Login({ setUser }) {
     const blankForm = {
         "username": "",
         "password": ""
@@ -28,8 +28,8 @@ function Login() {
             body:JSON.stringify(formData)
         })
         .then(resp => resp.json())
-        .then(data => console.log(data))
-
+        .then(data => setUser(data))
+        setFormData(blankForm)
         navigate("/")
     
     }

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 
-function MealCard({ name, image, instruction, ingred1, ingred2, ingred3, ingred4, ingred5, ingred6, ingred7, ingred8, ingred9, ingred10, ingred11, ingred12, ingred13, ingred14, ingred15, ingred16, ingred17, ingred18, ingred19, measure1, measure2, measure3, measure4, measure5, measure6, measure7, measure8, measure9, measure10, measure11, measure12, measure13, measure14, measure15, measure16, measure17, measure18, measure19}) {
+function MealCard({setUser, setMeals, user, id, reviews, name, image, instruction, ingred1, ingred2, ingred3, ingred4, ingred5, ingred6, ingred7, ingred8, ingred9, ingred10, ingred11, ingred12, ingred13, ingred14, ingred15, ingred16, ingred17, ingred18, ingred19, measure1, measure2, measure3, measure4, measure5, measure6, measure7, measure8, measure9, measure10, measure11, measure12, measure13, measure14, measure15, measure16, measure17, measure18, measure19}) {
 
     const [Ingredient1, setIngredient1] = useState(ingred1)
     const [Ingredient2, setIngredient2] = useState(ingred2)
@@ -43,6 +43,57 @@ function MealCard({ name, image, instruction, ingred1, ingred2, ingred3, ingred4
     const [Measure17, setMeasure17] = useState(measure17)
     const [Measure18, setMeasure18] = useState(measure18)
     const [Measure19, setMeasure19] = useState(measure19)
+
+    function handleSubmit(event){
+      event.preventDefault()
+      console.log(user)
+      const new_comment = {
+        "user_id" : user.id,
+        "meal_id" : id,
+        "comment" : event.target.comment.value
+      }
+      
+      fetch("http://127.0.0.1:5555/mealrevs",{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify(new_comment)
+      })
+      .then(resp => resp.json())
+      
+      fetch("http://127.0.0.1:5555/meals")
+      .then(resp => resp.json())
+      .then((data)=> setMeals(data))
+
+      fetch(`http://127.0.0.1:5555/users/${user.id}`)
+      .then(resp => resp.json())
+      .then((data)=> setUser(data))
+    }
+
+    function handleClick(e){
+      const new_comment = {
+        "user_id" : user.id,
+        "meal_id" : id
+      }
+      
+      fetch("http://127.0.0.1:5555/favmeals",{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify(new_comment)
+      })
+      .then(resp => resp.json())
+
+      fetch("http://127.0.0.1:5555/meals")
+      .then(resp => resp.json())
+      .then((data)=> setMeals(data))
+
+      fetch(`http://127.0.0.1:5555/users/${user.id}`)
+      .then(resp => resp.json())
+      .then((data)=> setUser(data))
+    }
     
     return(
       <div className = "detail_card">
@@ -73,6 +124,22 @@ function MealCard({ name, image, instruction, ingred1, ingred2, ingred3, ingred4
                   {Ingredient18 ? <li><p>{Ingredient18} - {Measure18}</p></li> : null}
                   {Ingredient19 ? <li><p>{Ingredient19} - {Measure19}</p></li> : null}
                 </ul>
+              </div>
+              <div>
+                <h4>Comments</h4>
+                {reviews ? reviews.map(review => (<p>{review.comment}</p>)) : null}
+              </div>
+              <div>
+                { user ? 
+                  <form onSubmit={handleSubmit}>
+                    <input type="text" name="comment" placeholder="comment"></input>
+                    <button type="submit">Submit</button>
+                  </form>: null}
+              </div>
+              <div>
+                { user ? 
+                    <button onClick={handleClick}>Favorite</button>
+                  : null}
               </div>
         </div>
     )

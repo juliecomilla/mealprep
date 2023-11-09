@@ -23,7 +23,7 @@ bcrypt = Bcrypt()
 class User(db.Model, SerializerMixin):
     __tablename__ = "users"
 
-    serialize_rules = ("-meal_reviews","-cocktail_reviews","-favorite_meals","-favorite_tails")
+    serialize_rules = ("-meal_reviews.user","-cocktail_reviews.user","-favorite_meals.user","-favorite_tails.user")
     
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, nullable=False)
@@ -58,7 +58,7 @@ class User(db.Model, SerializerMixin):
 class Meal(db.Model, SerializerMixin):
     __tablename__ = "meals"
 
-    serialize_rules = ("-reviews","-favorites")
+    serialize_rules = ("-reviews.meal","-favorites.meal")
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
@@ -115,7 +115,7 @@ class Meal(db.Model, SerializerMixin):
 class Cocktail(db.Model, SerializerMixin):
     __tablename__ = "cocktails"
 
-    serialize_rules = ("-reviews","-favorites")
+    serialize_rules = ("-reviews.cocktail","-favorites.cocktail")
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
@@ -142,7 +142,7 @@ class Cocktail(db.Model, SerializerMixin):
 class FavoriteMeal(db.Model, SerializerMixin):
     __tablename__ = "favoritemeals"
 
-    serialize_rules = ("-user","-meal")
+    serialize_rules = ("-user.favorite_meals","-meal.favorites")
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -157,7 +157,7 @@ class FavoriteMeal(db.Model, SerializerMixin):
 class FavoriteCocktail(db.Model, SerializerMixin):
     __tablename__ = "favoritecocktails"
 
-    serialize_rules = ("-user","-cocktail")
+    serialize_rules = ("-user.favorite_tails","-cocktail.favorites")
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
