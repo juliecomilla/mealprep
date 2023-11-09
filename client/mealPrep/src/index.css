@@ -1,0 +1,98 @@
+
+
+.header {
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: 'Helvetica Neue', 'Roboto', Arial, sans-serif;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; 
+
+}
+
+.navbar {
+  background-color: lightgreen; /* Background color of the navbar */
+  color: pink; /* Text color */
+  list-style: none;
+
+  width: 100%; /* width of the vertical navbar */
+
+  display: flex;
+  border-bottom: 1px solid #555;
+  gap: 25px;
+  align-content: center;
+  justify-content: center;
+  
+}
+
+.navbar li {
+  padding: 10px 0; /* Add vertical spacing between items */
+  text-align: center; /* Center-align the text */
+  word-spacing: 100%
+}
+
+.navbar a {
+  text-decoration: none; /* Remove underlines from links */
+  color: black; /* Text color for links */
+  display: block; /* Make the entire list item clickable */
+ 
+}
+
+.navbar a:hover {
+  background-color: lightblue; /* Background color on hover */
+}
+
+.cocktail_image {
+ 
+  width: 250px; /* Set the desired width */
+  height: 100%; /* Maintain the aspect ratio */
+  display: block; /* Make the image a block-level element */
+  margin: 0 auto;
+}
+
+.drink-main-name {
+  color: black;
+  font: italic normal bold 16px/1.5 "Helvetica", sans-serif;
+
+
+}
+
+.cocktail_main {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+
+}
+
+.meal_image {
+  width: 250px; /* Set the desired width */
+  height: 100%; /* Maintain the aspect ratio */
+  display: block; /* Make the image a block-level element */
+}
+
+
+.cocktailmain_image {
+  /* display: grid; */
+  padding: 2.5rem;
+  width: 100%;
+  flex-wrap: wrap;
+
+}
+
+.y {
+  text-align: center;
+}
+
+.x {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+}
+
+.meal-main-name {
+  color: black;
+  font: italic normal bold 16px/1.5 "Helvetica", sans-serif;
+
+}

@@ -45,13 +45,16 @@ function MealCard({ strMeal, strMealThumb, strInstructions, strIngredient1, strI
     const [Measure19, setMeasure19] = useState(strMeasure19)
     
     return(
-      <div className = "detail_card">
-              <div className = "cocktail_name">{strMeal}
-                <img src={strMealThumb} alt={strMeal}className="cocktail_image" />
-                <p className="cocktail_instructions"> {strInstructions} </p>
-              </div>
+      <div className="card border-success mb-3">
+              <h5 className="card-header bg-transparent border-success">{strMeal}</h5>
+              <div class="card-body text-success"></div>
+                <img src={strMealThumb} alt={strMeal}className="meal_image" />
+                <p className="meal_instructions"> {strInstructions} </p>
+            
               <div>
-                <h4>Ingredients</h4>
+                
+                
+                <h4>Ingredients:</h4>
                 <ul>
                   {Ingredient1 ? <li><p>{Ingredient1} - {Measure1}</p></li> : null}
                   {Ingredient2 ? <li><p>{Ingredient2} - {Measure2}</p></li> : null}
@@ -74,7 +77,7 @@ function MealCard({ strMeal, strMealThumb, strInstructions, strIngredient1, strI
                   {Ingredient19 ? <li><p>{Ingredient19} - {Measure19}</p></li> : null}
                 </ul>
               </div>
-        </div>
+              </div>
     )
   }
   

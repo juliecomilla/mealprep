@@ -16,14 +16,18 @@ function CocktailCard({ strDrink, strDrinkThumb, strInstructions, strIngredient1
   const [Measure5, setMeasure5] = useState(strMeasure5)
   
   return(
-    <div className = "detail_card">
-            <div className = "cocktail_name">{strDrink}
+    <div className="card border-success mb-3">
+
+               <h5 className = "card-header bg-transparent border-success">{strDrink}</h5>
+               <div class="card-body text-success"></div>
               <img src={strDrinkThumb} alt={strDrink}className="cocktail_image" />
               <p className="cocktail_instructions"> {strInstructions} </p>
-            </div>
+      
             <div>
+
+
               <h4>Ingredients:</h4>
-              <ul className = "cocktail_ingredients">
+              <ul>
                 {Ingredient1 ? <li><p>{Ingredient1} - {Measure1}</p></li> : null}
                 {Ingredient2 ? <li><p>{Ingredient2} - {Measure2}</p></li> : null}
                 {Ingredient3 ? <li><p>{Ingredient3} - {Measure3}</p></li> : null}
